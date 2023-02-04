@@ -22,6 +22,8 @@ public class MemberController {
     @Autowired MemberService memberService;
     @Autowired ItemService itemService;
 
+    // 뷰 조회 하는 컨틀롤러
+    // 회원 추가 및 조회하는 컨트롤러
     @RequestMapping(value = "/members/new", method = RequestMethod.GET)
     public String createForm() {
         return "members/createMemberForm";

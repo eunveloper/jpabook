@@ -4,10 +4,12 @@
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <tx:annotation-driven/>
+    <tx:annotation-driven/> <!-- <tx:annotation-driven/> : 어노테이션 기반의 트랜잭션 관리자를 활성화 한다. -->
 
     <context:component-scan base-package="jpabook.jpashop.service, jpabook.jpashop.repository"/>
 
+    <!-- 데이터베이스에 접근할 데이터 소스를 등록한다. -->
+    <!-- 인메모리 데이터베이스를 사용할땐 따로 설정하지 않아도 된다. -->
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
         <property name="driverClassName" value="org.h2.Driver"/>
         <property name="url" value="jdbc:h2:mem:jpashop"/>
@@ -15,13 +17,26 @@
         <property name="password" value=""/>
     </bean>
 
+    <!-- 트랜잭션 관리자를 등록한다. -->
+    <!-- JPA를 사용하려면 JpaTransactionManager로 등록해야 한다. -->
+    <!-- 기본 트랜잭션 관리자의 기능을 포함하고 있기 때문에 jdbcTemplate, Mybatis와도 사용할 수 있다. -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!-- JPA 예외를 스프링 예외로 변환 -->
+    <!-- @Repository 어노테이션이 붙어있는 스프링 빈에 예외 변환 AOP를 적용 -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
+    <!-- 스프링 프레임워크에서 JPA를 사용하려면 LocalContainerEntityManagerFactoryBean를 스프링 빈으로 등록하면 된다. -->
+    <!--
+        - LocalContainerEntityManagerFactoryBean : JPA를 스프링 컨테이너에서 사용할 수 있도록 해주는 스프링이 제공하는 기능
+        - dataSource : 데이터 소스를 등록
+        - packageToScan : @Entity가 붙은 클래스를 자동으로 검색하기 위한 시작점을 지정
+        - persistenceUnitName : 영속성 유닛 이름을 설정
+            - 영속성 유닛 ? 응용프로그램의 EntityManager 인스턴스에 의해 관리되는 모든 엔티티 클래스 집합을 정의
+        - jpaVendorAdapter : : 사용할 JPA 벤더를 지정
+    -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="jpabook.jpashop.domain"/> <!-- @Entity 탐색 시작 위치 -->
@@ -35,6 +50,7 @@
                 <prop key="hibernate.show_sql">true</prop>                   <!-- SQL 보기 -->
                 <prop key="hibernate.format_sql">true</prop>                 <!-- SQL 정렬해서 보기 -->
                 <prop key="hibernate.use_sql_comments">true</prop>           <!-- SQL 코멘트 보기 -->
+                <!-- 이걸 작성하지 않으면, 과거 버전에서 하용했던 키 생성 전략을 사용하게 된다. -->
                 <prop key="hibernate.id.new_generator_mappings">true</prop>  <!-- 새 버전의 ID 생성 옵션 -->
                 <prop key="hibernate.hbm2ddl.auto">create</prop>             <!-- DDL 자동 생성 -->
             </props>

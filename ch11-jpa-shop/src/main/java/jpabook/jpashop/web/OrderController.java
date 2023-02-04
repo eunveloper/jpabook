@@ -25,6 +25,8 @@ public class OrderController {
     @Autowired MemberService memberService;
     @Autowired ItemService itemService;
 
+    // 주문 화면 응답 컨트롤러
+    // 주문, 주문 내역 조회, 주문 취소 컨트롤러
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public String createForm(Model model) {
 

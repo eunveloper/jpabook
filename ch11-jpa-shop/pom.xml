@@ -3,8 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+    <!--
+        - modelVersion : POM 모델 버전
+        - groupId : 프로젝트 그룹명
+        - artifactId : 프로젝트를 식별하는 아이디
+        - version : 프로젝트 버전
+        - name : 프로젝트 이름
+        - packaging : 빌드 패키징 방법을 지정
+        - dependencies : 사용할 라이브러리를 지정
+        - build : 빌드 관련 정보를 설정
+     -->
 
+    <modelVersion>4.0.0</modelVersion>
     <groupId>jpabook</groupId>
     <artifactId>ch11-jpa-shop</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -12,56 +22,49 @@
     <packaging>war</packaging>
 
     <properties>
-
-        <!-- 기본 설정 -->
         <java.version>1.6</java.version>
-        <!-- 프로젝트 코드 인코딩 설정 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- 스프링 프레임워크 버전 -->
         <spring-framework.version>4.1.6.RELEASE</spring-framework.version>
-        <!-- JPA, 하이버네이트 버전 -->
         <hibernate.version>4.3.10.Final</hibernate.version>
-        <!-- 데이터베이스 버전 -->
         <tomcat-jdbc.version>7.0.57</tomcat-jdbc.version>
         <h2db.version>1.4.187</h2db.version>
-        <!-- JSP, WEB 버전 -->
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
         <servlet.version>3.0.1</servlet.version>
-        <!-- 로그 버전 -->
         <logback.version>1.1.1</logback.version>
         <slf4j.version>1.7.6</slf4j.version>
-        <!-- 테스트 버전 -->
         <junit.version>4.12</junit.version>
-
     </properties>
 
-    <dependencies>
 
-        <!-- 스프링 MVC -->
+    <!--
+        [메이븐 dependency의 scope 설정]
+        - compile : 컴파일 시 라이브러리 사용
+        - runtime : 실행 시 라이브러리 사용
+        - provided : 외부에서 라이브러리가 제공. 컴파일 시 사용하지만 빌드에 포함하지 않음
+        - test : 테스트 코드에만 사용
+    -->
+
+    <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring-framework.version}</version>
         </dependency>
 
-        <!-- 스프링 ORM -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring-framework.version}</version>
         </dependency>
 
-        <!-- JPA, 하이버네이트 -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
 
-        <!-- H2 데이터베이스 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -69,7 +72,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 커넥션 풀 -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
@@ -77,7 +79,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- WEB -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -97,7 +98,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 로깅 SLF4J & LogBack -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -111,7 +111,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 테스트 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -124,7 +123,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 	<build>

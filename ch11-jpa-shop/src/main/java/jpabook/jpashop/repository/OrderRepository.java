@@ -31,6 +31,7 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
+    // Criteria 를 이용하였다.
     public List<Order> findAll(OrderSearch orderSearch) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -41,6 +42,7 @@ public class OrderRepository {
 
         //주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
+            // 주문 상태 조회 조건에 따라서 equal 함수를 통해서 = 조회를 했다.
             Predicate status = cb.equal(o.get("status"), orderSearch.getOrderStatus());
             criteria.add(status);
         }

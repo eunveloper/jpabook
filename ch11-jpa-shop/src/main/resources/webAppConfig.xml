@@ -4,6 +4,15 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--
+        - <mvc:annotation-driven/> : 스프링 MVC 기능을 활성화 한다.
+        - <context:component-scan/> : basePackages를 포함한 하위 패키지는 검색하여 스프링 빈으로 자동 등록한다.
+        - <bean> : 스프링 빈을 등록한다.
+        - 스프링 빈을 등록하는 방식이 두가지가 있기때문
+        - 첫번째 방식은 어노테이션 방식으로 컴포넌트 스캔방식이고
+        - 두번째 방식은 설정 파일 방식이다.
+    -->
+
     <mvc:annotation-driven/>
     <!--<context:annotation-config />-->
 
